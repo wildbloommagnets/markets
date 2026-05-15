@@ -31,7 +31,6 @@ jobs:
         run: |
           mkdir _site
           echo "<h1>My Custom Site</h1>" > _site/index.html
-
       - name: Upload artifact
         uses: [actions/upload-pages-artifact](https://github.com/actions/upload-pages-artifact)@v3
         with:
