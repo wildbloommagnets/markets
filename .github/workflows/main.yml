@@ -5,7 +5,7 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
-# Grant the permissions required to deploy to Pages
+# Grant the permissions required to deploy to Page
 permissions:
   contents: read
   pages: write
