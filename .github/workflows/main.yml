@@ -1,28 +1,33 @@
-name: Build and Deploy
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
     branches:
       - main
-      - master
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
     runs-on: ubuntu-latest
-    
     steps:
-      # Check out your code
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
       
-      # Run tests/validation (e.g., HTML validation)
-      - name: Validate HTML
-        run: |
-          # Add your validation commands here
-          echo "Validating index.html..."
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       
-      # Deploy your changes
-      - name: Deploy to hosting
-        run: |
-          # Add your deployment commands here
-          # Example: Deploy to GitHub Pages, Firebase, Vercel, etc.
-          echo "Deploying changes..."
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
